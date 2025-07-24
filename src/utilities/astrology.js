@@ -20,10 +20,23 @@ export const getHouseFromDD = (houses, decimalDegrees) => {
   return houses.find((house) => isDegreeWithinCircleArc(house.ChartPosition.StartPosition.Ecliptic.DecimalDegrees, house.ChartPosition.EndPosition.Ecliptic.DecimalDegrees, decimalDegrees));
 };
 
+// export const constructHouses = (cuspsArray, ascendantDegrees, zodiac, language = 'en') => cuspsArray.map((cuspDegree, index) => {
+//   const houseId = index + 1;
+//   return new House({
+//     ascendantDegrees, eclipticDegreesStart: cuspDegree, eclipticDegreesEnd: cuspsArray[modulo(index + 1, cuspsArray.length + 1)], id: houseId, zodiac, language,
+//   });
+// });
+
+// Patch for house 12
 export const constructHouses = (cuspsArray, ascendantDegrees, zodiac, language = 'en') => cuspsArray.map((cuspDegree, index) => {
   const houseId = index + 1;
   return new House({
-    ascendantDegrees, eclipticDegreesStart: cuspDegree, eclipticDegreesEnd: cuspsArray[modulo(index + 1, cuspsArray.length + 1)], id: houseId, zodiac, language,
+    ascendantDegrees,
+    eclipticDegreesStart: cuspDegree,
+    eclipticDegreesEnd: cuspsArray[(index + 1) % cuspsArray.length],
+    id: houseId,
+    zodiac,
+    language,
   });
 });
 
